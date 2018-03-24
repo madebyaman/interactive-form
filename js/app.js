@@ -26,8 +26,8 @@ nameField.focus();
 // Reveal a text field when 'other' job role is selected
 
 jobRoleText.style.display = 'none';
-jobRole.addEventListener('change', (e) => {
-  if (e.path[0].selectedOptions[0].value === 'other') {
+jobRole.addEventListener('input', (e) => {
+  if (e.target.selectedIndex === 5) {
     jobRoleText.style.display = '';
   } else {
     jobRoleText.style.display = 'none';
@@ -206,6 +206,9 @@ function validateEmail() {
     emailField.previousElementSibling.innerText = "Email:";
     emailField.previousElementSibling.classList.remove('error');
     return true;
+  } else if (emailField.value === '') {
+    emailField.previousElementSibling.innerText = 'Looks like you forgot to enter your email address'
+    emailField.previousElementSibling.classList.add('error');
   } else {
     emailField.previousElementSibling.innerText = "Uh-oh! Your email seems to be invalid";
     emailField.previousElementSibling.classList.add('error');

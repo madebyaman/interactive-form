@@ -186,5 +186,5 @@ button:hover {
 
 .error {
 	color: #c6141a;
-	text-transform: uppercase;
+	font-weight: bold;
 }
