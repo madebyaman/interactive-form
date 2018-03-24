@@ -232,6 +232,15 @@ function validateJobRole() {
         return true;
       }
     })
+    if (jobRoleText.value === '') {
+      jobRole.previousElementSibling.innerText = "Enter a valid job name";
+      jobRole.previousElementSibling.classList.add('error');
+      return false;
+    } else {
+      jobRole.previousElementSibling.innerText = "Job Role";
+      jobRole.previousElementSibling.classList.remove('error');
+      return true;
+    }
   } else {
     jobRole.previousElementSibling.innerText = "Please select a valid job";
     jobRole.previousElementSibling.classList.add('error');
@@ -296,6 +305,11 @@ function validatePayment() {
     })
     paymentOption.previousElementSibling.innerText = 'I\'m going to pay with:';
     paymentOption.previousElementSibling.classList.remove('error');
+    if (cardNumberValidation && cardCvvValidation && cardZipValidation) {
+      return true;
+    } else {
+      return false;
+    }
   } else if (paymentOption.querySelectorAll('option')[2].selected || paymentOption.querySelectorAll('option')[3].selected) {
     paymentOption.previousElementSibling.innerText = 'I\'m going to pay with:';
     paymentOption.previousElementSibling.classList.remove('error');
@@ -309,46 +323,52 @@ function validatePayment() {
 
 // Validate credit card number
 
+let cardNumberValidation = false;
+
 function validateCardNumber() {
   let regex = RegExp('^[0-9]{13,16}$');
   if (cardNumber.value.match(regex)) {
     cardNumber.previousElementSibling.innerText = 'Card Number:'
     cardNumber.previousElementSibling.classList.remove('error');
-    return true;
+    cardNumberValidation = true;
   } else {
     cardNumber.previousElementSibling.innerText = 'Your card number seems to be valid'
     cardNumber.previousElementSibling.classList.add('error');
-    return false;
+    cardNumberValidation = false;
   }
 }
 
 // validate cvv number
+
+let cardCvvValidation = false;
 
 function validateCVV() {
   let regex = RegExp('^[0-9]{3}$');
   if (cvv.value.match(regex)) {
     cvv.previousElementSibling.innerText = 'CVV:'
     cvv.previousElementSibling.classList.remove('error');
-    return true;
+    cardCvvValidation = true;
   } else {
     cvv.previousElementSibling.innerText = 'Enter a correct 3-digit CVV'
     cvv.previousElementSibling.classList.add('error');
-    return false;
+    cardCvvValidation = false;
   }
 }
 
 // validate ZIP code
+
+let cardZipValidation = false;
 
 function validateZIP() {
   let regex = RegExp('^[0-9]{5}$');
   if (zip.value.match(regex)) {
     zip.previousElementSibling.innerText = 'ZIP Code:'
     zip.previousElementSibling.classList.remove('error');
-    return true;
+    cardZipValidation = true;
   } else {
     zip.previousElementSibling.innerText = 'Enter a correct 5-digit zip code'
     zip.previousElementSibling.classList.add('error');
-    return false;
+    cardZipValidation = false;
   }
 }
 
