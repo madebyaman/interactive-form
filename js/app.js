@@ -294,17 +294,16 @@ function validatePayment() {
         validateZIP();
       }
     })
-    formValidation = true;
     paymentOption.previousElementSibling.innerText = 'I\'m going to pay with:';
     paymentOption.previousElementSibling.classList.remove('error');
   } else if (paymentOption.querySelectorAll('option')[2].selected || paymentOption.querySelectorAll('option')[3].selected) {
-    formValidation = true;
     paymentOption.previousElementSibling.innerText = 'I\'m going to pay with:';
     paymentOption.previousElementSibling.classList.remove('error');
+    return true;
   } else {
-    formValidation = false;
     paymentOption.previousElementSibling.innerText = 'Select at least one of the payment option';
     paymentOption.previousElementSibling.classList.add('error');
+    return false;
   }
 }
 
@@ -380,14 +379,11 @@ activitiesMenu.addEventListener('change', () => {
 // Submit event listener on form
 
 form.addEventListener('submit', (e) => {
-  if (validateName() && validateActivity() && validateEmail() && validateJobRole() && validatePayment() && validateShirtColor() && validateShirtDesign() && validateShirtSize) {
-    return;
-  } else {
+  if (!validateName() || !validateActivity() || !validateEmail() || !validateJobRole() || !validatePayment() || !validateShirtDesign() || !validateShirtSize) {
     e.preventDefault();
     validateName();
     validateEmail();
     validateJobRole();
-    validateShirtColor();
     validateShirtDesign();
     validateShirtSize();
     validatePayment();
